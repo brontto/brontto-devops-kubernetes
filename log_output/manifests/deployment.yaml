@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: string-generator-dep
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: string-generator
+  template:
+    metadata:
+      labels:
+        app: string-generator
+    spec:
+      volumes: 
+        - name: shared-string
+          persistentVolumeClaim:
+            claimName: string-generator-claim
+      containers:
+        - name: string-reader
+          image: brontto/string_reader:h345erhjut
+          volumeMounts:
+          - name: shared-string
+            mountPath: /usr/src/app/files
+        - name: string-writer
+          image: brontto/string_writer:5yhtehrgwe
+          volumeMounts:
+          - name: shared-string
+            mountPath: /usr/src/app/files
+        
