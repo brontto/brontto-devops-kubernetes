@@ -6,17 +6,10 @@ spec:
   rules:
   - http:
       paths:
-      - path: /
+      - path: /log_output
         pathType: Prefix
         backend:
           service:
             name: string-generator-svc
             port:
               number: 2346
-      - path: /pingpong
-        pathType: Prefix
-        backend:
-          service:
-            name: pingpong-svc
-            port:
-              number: 2347

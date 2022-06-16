@@ -13,13 +13,13 @@ spec:
         app: pingpong
     spec:
       volumes:
-        - name: shared-hash
+        - name: shared-ping
           persistentVolumeClaim:
-            claimName: string-generator-claim
+            claimName: ping-claim
       containers:
         - name: pingpong
-          image: brontto/pingpong:34whras
+          image: brontto/pingpong:wegawerg
           volumeMounts:
-          - name: shared-hash
-            mountPath: /usr/src/app/files
+          - name: shared-ping
+            mountPath: /usr/src/app/ping
         

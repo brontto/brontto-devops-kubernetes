@@ -14,16 +14,20 @@ spec:
     spec:
       volumes: 
         - name: shared-string
+          emptyDir: {}
+        - name: shared-ping
           persistentVolumeClaim:
-            claimName: string-generator-claim
+            claimName: ping-claim
       containers:
         - name: string-reader
-          image: brontto/string_reader:h345erhjut
+          image: brontto/string_reader:4gwawsrasg
           volumeMounts:
           - name: shared-string
             mountPath: /usr/src/app/files
+          - name: shared-ping
+            mountPath: /usr/src/app/ping
         - name: string-writer
-          image: brontto/string_writer:5yhtehrgwe
+          image: brontto/string_writer:hertaershsr
           volumeMounts:
           - name: shared-string
             mountPath: /usr/src/app/files
