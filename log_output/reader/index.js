@@ -10,9 +10,7 @@ app.use(morgan('tiny'))
 
 
 const read = (file) => {
-     
-    return fs.readFileSync(file, 'utf-8')
-    
+     return fs.readFileSync(file, 'utf-8')
 }
 
 app.get('/', (req, res) => {
