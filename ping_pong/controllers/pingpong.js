@@ -8,10 +8,18 @@ const pingPath = path.join(directory, 'ping.txt')
 
 pingpongRouter.get('/', (req, res) => {
     counter = Number(read(pingPath))
-    res.send(`pong ${counter}`)
     counter = counter + 1
     write(counter.toString())
     console.log(counter)
-  })
+    res.send(`pong ${counter}`)
+})
+
+pingpongRouter.get('/pingcount', (req, res) => {
+    counter = Number(read(pingPath))
+    counter = counter + 1
+    write(counter.toString())
+    console.log(counter)
+    res.send(`${counter}`)
+})
 
 module.exports = pingpongRouter

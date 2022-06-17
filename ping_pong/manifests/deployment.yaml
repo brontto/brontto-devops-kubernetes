@@ -12,13 +12,12 @@ spec:
       labels:
         app: pingpong
     spec:
-      volumes:
+      volumes: 
         - name: shared-ping
-          persistentVolumeClaim:
-            claimName: ping-claim
+          emptyDir: {}
       containers:
         - name: pingpong
-          image: brontto/pingpong:wegawerg
+          image: brontto/pingpong:ttdgsdav
           volumeMounts:
           - name: shared-ping
             mountPath: /usr/src/app/ping
