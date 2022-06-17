@@ -18,7 +18,7 @@ spec:
             claimName: todo-claim
       containers:
         - name: todoserver
-          image: brontto/todo_server:12rfeaasd
+          image: brontto/todo_server:asdghar
           volumeMounts:
           - name: shared-todo
             mountPath: /usr/src/app/files

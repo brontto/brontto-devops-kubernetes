@@ -1,3 +1,5 @@
+const { downloadFile } = require('../services/files')
+
 const todoRouter = require('express').Router()
 
 todoRouter.get('/info', (req, res) => {
@@ -6,6 +8,7 @@ todoRouter.get('/info', (req, res) => {
 
 
 todoRouter.get('/kuva', (req, res) => {
+    downloadFile()
     console.log('kuva')
     res.sendFile('/usr/src/app/files/image.jpg')
 })
