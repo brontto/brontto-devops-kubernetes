@@ -6,7 +6,7 @@ COPY . .
 
 ENV PORT=3001
 
-RUN npm install
+RUN npm install 
 
 EXPOSE 3001
 

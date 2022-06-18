@@ -1,0 +1,7 @@
+POST http://localhost:8081/todos
+Content-Type: application/json
+
+{
+    "content": "TODO TEST",
+    "done": false
+}

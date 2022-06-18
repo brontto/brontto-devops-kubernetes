@@ -1,18 +1,34 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import DailyPicture from './components/DailyPicture'
 import TodoList from './components/TodoList'
-
+import todoService from './services/todos'
 
 const App = () => {
-  const [todos, setTodos] = useState(['TODO 1', 'TODO2'])
+  const [todos, setTodos] = useState([])
   const [newTodo, setNewTodo] = useState('')
 
-  console.log(todos)
+  useEffect(() => {
+    todoService
+      .getAll()
+      .then(initialTodos => {
+        setTodos(initialTodos)
+      })
+  }, [])
 
   const addNewTodo = (event) => {
     event.preventDefault()
-    setTodos(todos.concat(newTodo))
-    setNewTodo('')
+    const todoObject = {
+        content: newTodo,
+        done: false
+    }
+
+    todoService
+      .create(todoObject)
+      .then(returnedTodo => {
+        setTodos(todos.concat(returnedTodo))
+        setNewTodo('')
+      })
+
   }
 
   const handleNewTodoChange = (event) => {

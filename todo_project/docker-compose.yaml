@@ -1,0 +1,16 @@
+version: '3.8'
+
+services:
+  frontend:
+    build: ./todo_front
+    expose:
+      - 3000
+    ports:
+      - 3000:3000
+
+  backend:
+    build: ./todo_server
+    expose:
+      - 3001
+    ports:
+      - 3001:3001

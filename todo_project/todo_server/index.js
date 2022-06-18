@@ -8,11 +8,10 @@ const todoRouter = require('./controllers/todos')
 
 const app = express()
 app.use(cors())
-app.use(express.static('build'))
 app.use(morgan('tiny'))
+app.use(express.json())
 
-app.use(todoRouter)
-
+app.use('/todos', todoRouter)
 
 
 schedule.scheduleJob('0 0 * * *', () => {
