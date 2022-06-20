@@ -8,3 +8,4 @@
 
 #### Part2
 1. Networking between pods - 8h
+2. Oranizing a cluster - 0.5h
