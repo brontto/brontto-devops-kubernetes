@@ -2,6 +2,7 @@ const logRouter = require('express').Router()
 const read = require('../services/fileReader').read
 const path = require('path')
 const axios = require('axios')
+const MESSAGE = require('../services/config').MESSAGE
 
 const logDirectory = path.join('/', 'usr', 'src', 'app', 'files')
 const logPath = path.join(logDirectory, 'temp.txt')
@@ -18,7 +19,7 @@ logRouter.get('/', async (req, res) => {
             pingpong = response.data
         })
 
-    res.send(`${hash} <br>Ping / Pongs: ${pingpong}`)
+    res.send(`${MESSAGE} <br>${hash} <br>Ping / Pongs: ${pingpong}`)
 })
 
 module.exports = logRouter
