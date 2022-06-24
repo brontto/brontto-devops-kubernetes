@@ -1,25 +1,18 @@
 const pingpongRouter = require('express').Router()
-const { write } = require('../services/fileWriter')
-const { read } = require('../services/fileReader')
-const path = require('path')
+const counter = require('../services/counter')
 
-const directory = path.join('/', 'usr', 'src', 'app', 'ping')
-const pingPath = path.join(directory, 'ping.txt')
-
-pingpongRouter.get('/', (req, res) => {
-    counter = Number(read(pingPath))
-    counter = counter + 1
-    write(counter.toString())
-    console.log(counter)
-    res.send(`pong ${counter}`)
+pingpongRouter.get('/', async (req, res) => {
+    await counter.increment()
+    count = await counter.get()
+    console.log(count)
+    res.send(`pong ${count}`)
 })
 
-pingpongRouter.get('/pingcount', (req, res) => {
-    counter = Number(read(pingPath))
-    counter = counter + 1
-    write(counter.toString())
-    console.log(counter)
-    res.send(`${counter}`)
+pingpongRouter.get('/pingcount', async (req, res) => {
+    await counter.increment()
+    count = await counter.get()
+    console.log(count)
+    res.send(`${count}`)
 })
 
 module.exports = pingpongRouter

@@ -1,27 +1,28 @@
 apiVersion: apps/v1
-kind: Deployment
+kind: StatefulSet
 metadata:
+  name: postgres-ss
   namespace: exercises
-  name: pingpong-dep
 spec:
+  serviceName: postgres-svc
   replicas: 1
   selector:
     matchLabels:
-      app: pingpong
+      app: postgres
   template:
     metadata:
       labels:
-        app: pingpong
+        app: postgres
     spec:
-      volumes: 
-        - name: shared-ping
-          emptyDir: {}
       containers:
-        - name: pingpong
-          image: brontto/pingpong:thasdf
+        - name: postgres
+          image: postgres
+          ports:
+            - name: web
+              containerPort: 5432
           volumeMounts:
-          - name: shared-ping
-            mountPath: /usr/src/app/ping
+            - name: data
+              mountPath: /data
           env:
             - name: POSTGRES_PASSWORD
               valueFrom:
@@ -32,5 +33,13 @@ spec:
               value: "bron"
             - name: POSTGRES_DB
               value: "db_post"
-
+  volumeClaimTemplates:
+    - metadata:
+        name: data
+      spec:
+        accessModes: ["ReadWriteOnce"]
+        storageClassName: local-path
+        resources:
+          requests:
+            storage: 100Mi
         
