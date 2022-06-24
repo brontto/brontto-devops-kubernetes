@@ -1,38 +1,29 @@
 const { downloadFile } = require('../services/files')
-
 const todoRouter = require('express').Router()
+const Todo = require('../models/todo')
 
-var todos = [
-    {
-        content: 'TODO 1',
-        done: false
-    },
-    {
-        content: 'TODO 2',
-        done: false
-    }
-]
 
 todoRouter.post('/', (req, res) => {
     const body = req.body
 
-    if(!body.content){
-        return res.status(400).json({
-            error: 'content missing'
-        })
-    }
-
-    const todo = {
+    const todo = new Todo({
         content: body.content,
-        done: body.done || false
-    }
+        done: body.done || false,
+    })
 
-    todos = todos.concat(todo)
-    res.json(todo)
+    todo.save()
+        .then(savedTodo => {
+            res.json(savedTodo)
+        })
+        .catch(error => {
+            console.log(error)
+        })
 })
 
 todoRouter.get('/', (req, res) => {
-    res.json(todos)
+    Todo.find({}).then(todos => {
+        res.json(todos)
+    })
 })
 
 todoRouter.get('/info', (req, res) => {

@@ -12,6 +12,7 @@ const App = () => {
       .getAll()
       .then(initialTodos => {
         setTodos(initialTodos)
+        console.log(initialTodos)
       })
   }, [])
 

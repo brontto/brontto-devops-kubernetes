@@ -19,7 +19,15 @@ spec:
             claimName: todo-claim
       containers:
         - name: todoserver
-          image: brontto/todo_server:dsgas
+          image: brontto/todo_server:ethagedrth
           volumeMounts:
           - name: shared-todo
             mountPath: /usr/src/app/files
+          env:
+            - name: MONGO_INITDB_ROOT_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: mongodb-pass
+                  key: MONGO_INITDB_ROOT_PASSWORD
+            - name: MONGO_INITDB_ROOT_USERNAME
+              value: "bron"

@@ -1,0 +1,11 @@
+require('dotenv').config()
+
+let PORT = process.env.PORT
+let MONGO_INITDB_ROOT_USERNAME = process.env.MONGO_INITDB_ROOT_USERNAME
+let MONGO_INITDB_ROOT_PASSWORD = process.env.MONGO_INITDB_ROOT_PASSWORD
+
+module.exports = {
+    PORT,
+    MONGO_INITDB_ROOT_USERNAME,
+    MONGO_INITDB_ROOT_PASSWORD
+}
