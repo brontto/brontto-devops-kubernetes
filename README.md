@@ -10,3 +10,5 @@
 1. Networking between pods - 8h
 2. Oranizing a cluster - 0.5h
 3. Configuring applications - 4h
+4. StatefulSets and Jobs - 12h
+5. Monitoring - 1h
