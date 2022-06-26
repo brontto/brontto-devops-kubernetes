@@ -14,6 +14,10 @@ spec:
       labels:
         app: postgres
     spec:
+      volumes:
+      - name: data
+        persistentVolumeClaim:
+            claimName: postgres-claim
       containers:
         - name: postgres
           image: postgres
@@ -33,13 +37,3 @@ spec:
               value: "bron"
             - name: POSTGRES_DB
               value: "db_post"
-  volumeClaimTemplates:
-    - metadata:
-        name: data
-      spec:
-        accessModes: ["ReadWriteOnce"]
-        storageClassName: local-path
-        resources:
-          requests:
-            storage: 100Mi
-        

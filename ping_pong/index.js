@@ -3,12 +3,15 @@ const express = require('express')
 const cors = require('cors')
 const morgan = require('morgan')
 const pingpongRouter = require('./controllers/pingpong')
-const { write } = require('./services/fileWriter')
-const db = require('./services/databaseHandler')
 
 const app = express()
 app.use(cors())
 app.use(morgan('tiny'))
+
+app.get('/', (req, res) => {
+  res.send(200)
+})
+
 app.use('/pingpong', pingpongRouter)
 
 

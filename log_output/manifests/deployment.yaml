@@ -21,7 +21,7 @@ spec:
             name: logoutput-config
       containers:
         - name: string-reader
-          image: brontto/string_reader:asdghas
+          image: brontto/string_reader:erthsdfg
           volumeMounts:
           - name: shared-string
             mountPath: /usr/src/app/files

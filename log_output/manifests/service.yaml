@@ -4,7 +4,7 @@ metadata:
   namespace: exercises
   name: string-generator-svc
 spec:
-  type: ClusterIP
+  type: NodePort
   selector: 
     app: string-generator
   ports:

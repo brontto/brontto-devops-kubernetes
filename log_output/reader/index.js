@@ -7,7 +7,7 @@ const config = require('./services/config')
 const app = express()
 app.use(cors())
 app.use(morgan('tiny'))
-app.use('/log_output', logRouter)
+app.use(logRouter)
 
 const PORT = config.PORT | 3003
 app.listen(PORT, () => {
