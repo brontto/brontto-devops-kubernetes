@@ -11,6 +11,10 @@ app.use(cors())
 app.use(morgan('tiny'))
 app.use(express.json())
 
+app.get('/', (req, res) => {
+  res.send(200)
+})
+
 app.use('/todos', todoRouter)
 
 
