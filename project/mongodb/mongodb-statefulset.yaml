@@ -14,6 +14,10 @@ spec:
       labels:
         app: mongodb
     spec:
+      volumes:
+      - name: data
+        persistentVolumeClaim:
+            claimName: mongodb-claim
       containers:
         - name: mongodb
           image: mongo
@@ -23,6 +27,7 @@ spec:
           volumeMounts:
             - name: data
               mountPath: /data
+              subPath: mongodb
           env:
             - name: MONGO_INITDB_ROOT_PASSWORD
               valueFrom:
@@ -31,13 +36,5 @@ spec:
                   key: MONGO_INITDB_ROOT_PASSWORD
             - name: MONGO_INITDB_ROOT_USERNAME
               value: "bron"
-  volumeClaimTemplates:
-    - metadata:
-        name: data
-      spec:
-        accessModes: ["ReadWriteOnce"]
-        storageClassName: local-path
-        resources:
-          requests:
-            storage: 100Mi
+
         

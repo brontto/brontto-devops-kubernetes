@@ -4,7 +4,7 @@ metadata:
   namespace: project
   name: todofront-svc
 spec:
-  type: ClusterIP
+  type: NodePort
   selector: 
     app: todofront
   ports:

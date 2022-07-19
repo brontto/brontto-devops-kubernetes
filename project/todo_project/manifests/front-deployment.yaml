@@ -15,4 +15,4 @@ spec:
     spec:
       containers:
         - name: todofront
-          image: brontto/todo_front:asdfgafsdg
+          image: PROJECT/FRONT-IMAGE
