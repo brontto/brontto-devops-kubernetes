@@ -1,0 +1,20 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+resources:
+  - log_output/manifests/service.yaml
+  - log_output/manifests/deployment.yaml
+  - log_output/manifests/configmap.yaml
+  - ping_pong/manifests/service.yaml
+  - ping_pong/manifests/deployment.yaml
+  - postgres/postgres-secret.yaml
+  - postgres/postgres-statefulset.yaml
+  - postgres/postgres-volumeClaim.yaml
+  - postgres/postgres-service.yaml
+  - pingandlogoutput-ingress.yaml
+images:
+  - name: EXERCISES/LOG_OUTPUT/READER
+    newName: brontto/string_reader:erthsdfg
+  - name: EXERCISES/LOG_OUTPUT/WRITER
+    newName: brontto/string_writer:hertaershsr
+  - name: EXERCISES/PING_PONG
+    newName: brontto/pingpong:ashgethjerth

@@ -21,7 +21,7 @@ spec:
             name: logoutput-config
       containers:
         - name: string-reader
-          image: brontto/string_reader:erthsdfg
+          image: EXERCISES/LOG_OUTPUT/READER
           volumeMounts:
           - name: shared-string
             mountPath: /usr/src/app/files
@@ -35,7 +35,7 @@ spec:
                   name: logoutput-config
                   key: MESSAGE
         - name: string-writer
-          image: brontto/string_writer:hertaershsr
+          image: EXERCISES/LOG_OUTPUT/WRITER
           volumeMounts:
           - name: shared-string
             mountPath: /usr/src/app/files
