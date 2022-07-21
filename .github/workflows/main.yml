@@ -9,6 +9,7 @@ env:
   GKE_ZONE: europe-north1-b
   BACK_IMAGE: todo_server
   FRONT_IMAGE: todo_front
+  DAILY_IMAGE: todo_daily
 
 jobs:
   build-publish-deploy:
@@ -36,10 +37,18 @@ jobs:
           cd ./project/todo_project/todo_server/ && docker build \
             --tag "gcr.io/$PROJECT_ID/$BACK_IMAGE:${GITHUB_REF#refs/heads/}-$GITHUB_SHA" \
             . 
+          cd ./project/todo_project/todo_front/ && docker build \
+            --tag "gcr.io/$PROJECT_ID/$FRONT_IMAGE:${GITHUB_REF#refs/heads/}-$GITHUB_SHA" \
+            . 
+          cd ./project/todo_project/todo_daily/ && docker build \
+            --tag "gcr.io/$PROJECT_ID/$DAILY_IMAGE:${GITHUB_REF#refs/heads/}-$GITHUB_SHA" \
+            . 
             
       - name: Publish
         run: |-
           docker push "gcr.io/$PROJECT_ID/$BACK_IMAGE:${GITHUB_REF#refs/heads/}-$GITHUB_SHA"
+          docker push "gcr.io/$PROJECT_ID/$FRONT_IMAGE:${GITHUB_REF#refs/heads/}-$GITHUB_SHA"
+          docker push "gcr.io/$PROJECT_ID/$DAILY_IMAGE:${GITHUB_REF#refs/heads/}-$GITHUB_SHA"
       
       - name: Set up Kustomize
         uses: imranismail/setup-kustomize@v1
@@ -50,8 +59,11 @@ jobs:
           kubectl create namespace project || true
           kubectl config set-context --current --namespace=project
           kustomize edit set image gcr.io/PROJECT_ID/BACK-IMAGE=gcr.io/$PROJECT_ID/$BACK_IMAGE:${GITHUB_REF#refs/heads/}-$GITHUB_SHA
+          kustomize edit set image gcr.io/PROJECT_ID/FRONT-IMAGE=gcr.io/$PROJECT_ID/$FRONT_IMAGE:${GITHUB_REF#refs/heads/}-$GITHUB_SHA
+          kustomize edit set image gcr.io/PROJECT_ID/DAILY-IMAGE=gcr.io/$PROJECT_ID/$DAILY_IMAGE:${GITHUB_REF#refs/heads/}-$GITHUB_SHA
           kustomize build . | kubectl apply -f -
           kubectl rollout status deployment todoserver-dep
+          kubectl rollout status deployment todofront-dep
           kubectl get services -o wide
         
             
