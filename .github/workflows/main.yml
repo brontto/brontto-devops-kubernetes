@@ -51,7 +51,7 @@ jobs:
           kubectl config set-context --current --namespace=project
           kustomize edit set image gcr.io/PROJECT_ID/BACK-IMAGE=gcr.io/$PROJECT_ID/$BACK_IMAGE:${GITHUB_REF#refs/heads/}-$GITHUB_SHA
           kustomize build . | kubectl apply -f -
-          kustomize rollout status deployment todoserver-dep
+          kubectl rollout status deployment todoserver-dep
           kubectl get services -o wide
         
             
