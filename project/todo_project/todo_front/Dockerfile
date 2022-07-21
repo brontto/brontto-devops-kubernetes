@@ -3,10 +3,10 @@ FROM node:18-alpine
 WORKDIR /usr/src/app
 
 ENV PATH /usr/src/app/node_modules/.bin:$PATH
-COPY package*.json ./
+COPY . . 
 ADD package.json /usr/src/app/package.json
 
-COPY . . 
+
 EXPOSE 3000
 
 RUN npm install && \
