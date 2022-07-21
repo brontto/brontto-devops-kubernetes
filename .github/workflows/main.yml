@@ -10,6 +10,7 @@ env:
   BACK_IMAGE: todo_server
   FRONT_IMAGE: todo_front
   DAILY_IMAGE: todo_daily
+  SOPS_AGE_KEY: ${{ secrets.SOPS_AGE_KEY}}
 
 jobs:
   build-publish-deploy:
