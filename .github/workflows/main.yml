@@ -37,10 +37,10 @@ jobs:
           cd ./project/todo_project/todo_server/ && docker build \
             --tag "gcr.io/$PROJECT_ID/$BACK_IMAGE:${GITHUB_REF#refs/heads/}-$GITHUB_SHA" \
             .
-          cd ~./project/todo_project/todo_front/ && docker build \
+          cd ./../../../project/todo_project/todo_front/ && docker build \
             --tag "gcr.io/$PROJECT_ID/$FRONT_IMAGE:${GITHUB_REF#refs/heads/}-$GITHUB_SHA" \
             .
-          cd ./project/todo_project/todo_daily/ && docker build \
+          cd ./../../../project/todo_project/todo_daily/ && docker build \
             --tag "gcr.io/$PROJECT_ID/$DAILY_IMAGE:${GITHUB_REF#refs/heads/}-$GITHUB_SHA" \
             .
             
