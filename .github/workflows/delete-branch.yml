@@ -37,7 +37,5 @@ jobs:
       - name: Delete
         run: |-
           kubectl delete namespace ${BRANCH#refs/heads/}
-          docker rmi -f "gcr.io/$PROJECT_ID/$BACK_IMAGE:${BRANCH#refs/heads/}*"
-          docker rmi -f "gcr.io/$PROJECT_ID/$FRONT_IMAGE:${BRANCH#refs/heads/}*"
-          docker rmi -f "gcr.io/$PROJECT_ID/$DAILY_IMAGE:${BRANCH#refs/heads/}*"
+          docker image prune
           
