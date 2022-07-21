@@ -1,0 +1,41 @@
+name: Delete Branch Environment
+
+on: 
+  delete:
+  
+env:
+  PROJECT_ID: ${{ secrets.GKE_PROJECT }}
+  GKE_CLUSTER: dwk-cluster
+  GKE_ZONE: europe-north1-b
+  BACK_IMAGE: todo_server
+  FRONT_IMAGE: todo_front
+  DAILY_IMAGE: todo_daily
+
+jobs:
+  setup-delete-branch-environment:
+    name: Delete Branch Environment
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Set up Cloud SDK
+        uses: google-github-actions/setup-gcloud@main
+        with:
+          project_id: ${{ secrets.GKE_PROJECT }}
+          service_account_key: ${{ secrets.GKE_SA_KEY }}
+          export_default_credentials: true
+
+      - run: |-
+          gcloud --quiet auth configure-docker
+
+      - run: |-
+          gcloud container clusters get-credentials "$GKE_CLUSTER" --zone "$GKE_ZONE"
+
+      - name: Delete
+        run: |-
+          kubectl delete namespace ${GITHUB_REF#refs/heads/}
+          docker rmi -f Image "gcr.io/$PROJECT_ID/$BACK_IMAGE:${GITHUB_REF#refs/heads/}-$GITHUB_SHA"
+          docker rmi -f Image "gcr.io/$PROJECT_ID/$FRONT_IMAGE:${GITHUB_REF#refs/heads/}-$GITHUB_SHA"
+          docker rmi -f Image "gcr.io/$PROJECT_ID/$DAILY_IMAGE:${GITHUB_REF#refs/heads/}-$GITHUB_SHA"
