@@ -31,27 +31,24 @@ jobs:
       - run: |- 
           gcloud container clusters get-credentials "$GKE_CLUSTER" --zone "$GKE_ZONE"
       
-      - name: Build
+      - name: Build 
         run: |-
-          cd ./project/todo_project/todo_front/ docker build \
-            --tag "gcr.io/$PROJECT_ID/$FRONT_IMAGE:${GITHUB_REF#refs/heads/}-$GITHUB_SHA" \
-            . \
-          cd ./project/todo_project/todo_server/ docker build \
+          cd ./project/todo_project/todo_server/ && docker build \
             --tag "gcr.io/$PROJECT_ID/$BACK_IMAGE:${GITHUB_REF#refs/heads/}-$GITHUB_SHA" \
             . 
             
       - name: Publish
         run: |-
-          docker push "gcr.io/$PROJECT_ID/$IMAGE:${GITHUB_REF#refs/heads/}-$GITHUB_SHA"
+          docker push "gcr.io/$PROJECT_ID/$BACK_IMAGE:${GITHUB_REF#refs/heads/}-$GITHUB_SHA"
       
       - name: Set up Kustomize
         uses: imranismail/setup-kustomize@v1
       
       - name: Deploy
         run: |-
-          kustomize edit set image gcr.io/PROJECT_ID/IMAGE=gcr.io/$PROJECT_ID/$IMAGE:${GITHUB_REF#refs/heads/}-$GITHUB_SHA
+          kustomize edit set image gcr.io/PROJECT_ID/BACK-IMAGE=gcr.io/$PROJECT_ID/$BACK_IMAGE:${GITHUB_REF#refs/heads/}-$GITHUB_SHA
           kustomize build ./poject/ | kubectl apply -f -
-          kubectl rollout status deployment $IMAGE
+          kubectl rollout status deployment $BACK_IMAGE
           kubectl get services -o wide
         
             
