@@ -31,8 +31,8 @@ todoRouter.get('/info', (req, res) => {
 })
 
 
-todoRouter.get('/kuva', (req, res) => {
-    downloadFile()
+todoRouter.get('/kuva', async (req, res) => {
+    await downloadFile()
     console.log('kuva')
     res.sendFile('/usr/src/app/files/image.jpg')
 })

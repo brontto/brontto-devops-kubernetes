@@ -8,7 +8,9 @@ const downloadFile = async () => {
     if (await fileAlreadyExists()) return
 
     await new Promise(res => fs.mkdir(directory, (err) => res()))
+    
     const response = await axios.get('https://picsum.photos/200', { responseType: 'stream' })
+    
     response.data.pipe(fs.createWriteStream(filePath))
 }
 
