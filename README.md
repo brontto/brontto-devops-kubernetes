@@ -12,3 +12,7 @@
 3. Configuring applications - 4h
 4. StatefulSets and Jobs - 12h
 5. Monitoring - 1h
+
+#### Part3
+1. Introduction to Google Kubernetes Engine - 6h
+2. Deployment Pipeline - 8h - kesken
