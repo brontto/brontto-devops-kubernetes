@@ -55,7 +55,7 @@ jobs:
         run: |-
             wget https://github.com/mozilla/sops/releases/download/v3.7.3/sops_3.7.3_amd64.deb
             sudo apt install ./sops_3.7.3_amd64.deb
-            sops --decrypt ./project/mongodb/mongodb-secret.enc.yaml > ./project/mongodb/monbodb-secret.yaml
+            sops --decrypt ./project/mongodb/mongodb-secret.enc.yaml > ./project/mongodb/mongodb-secret.yaml
       
       - name: Set up Kustomize
         uses: imranismail/setup-kustomize@v1
