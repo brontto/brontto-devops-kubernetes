@@ -35,7 +35,7 @@ jobs:
 
       - name: Delete
         run: |-
-          kubectl delete namespace ${GITHUB_REF#refs/heads/}
-          docker rmi -f Image "gcr.io/$PROJECT_ID/$BACK_IMAGE:${GITHUB_REF#refs/heads/}-$GITHUB_SHA"
-          docker rmi -f Image "gcr.io/$PROJECT_ID/$FRONT_IMAGE:${GITHUB_REF#refs/heads/}-$GITHUB_SHA"
-          docker rmi -f Image "gcr.io/$PROJECT_ID/$DAILY_IMAGE:${GITHUB_REF#refs/heads/}-$GITHUB_SHA"
+          kubectl delete namespace ${GITHUB_REF_NAME#refs/heads/}
+          docker rmi -f Image "gcr.io/$PROJECT_ID/$BACK_IMAGE:${GITHUB_REF_NAME#refs/heads/}-$GITHUB_SHA"
+          docker rmi -f Image "gcr.io/$PROJECT_ID/$FRONT_IMAGE:${GITHUB_REF_NAME#refs/heads/}-$GITHUB_SHA"
+          docker rmi -f Image "gcr.io/$PROJECT_ID/$DAILY_IMAGE:${GITHUB_REF_NAME#refs/heads/}-$GITHUB_SHA"
