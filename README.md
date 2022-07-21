@@ -15,4 +15,4 @@
 
 #### Part3
 1. Introduction to Google Kubernetes Engine - 6h
-2. Deployment Pipeline - 8h - kesken
+2. Deployment Pipeline - 12h
