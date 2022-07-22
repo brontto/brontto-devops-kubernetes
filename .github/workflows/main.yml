@@ -4,6 +4,7 @@ on:
   push:
     paths:
       - 'project/**'
+      - '.github/workflows/main.yaml'
 
 env:
   PROJECT_ID: ${{ secrets.GKE_PROJECT }}
@@ -65,7 +66,7 @@ jobs:
       - name: Deploy
         run: |-
           cd ./project/
-          kubectl create namespace ${GITHUB_REF#refs/heads/} || true
+          kubectl create namespace ${GITHUB_REF#refs/heads/} --dry-run=client -o yaml | kubectl apply -f -
           kubectl config set-context --current --namespace=${GITHUB_REF#refs/heads/}
           kustomize edit set namespace  ${GITHUB_REF#refs/heads/}
           kustomize edit set image gcr.io/PROJECT_ID/BACK-IMAGE=gcr.io/$PROJECT_ID/$BACK_IMAGE:${GITHUB_REF#refs/heads/}-$GITHUB_SHA
