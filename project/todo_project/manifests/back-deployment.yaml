@@ -33,5 +33,5 @@ spec:
               value: "bron"
           resources:
             limits:
-              cpu: "150m"
+              cpu: "50m"
               memory: "100Mi"
