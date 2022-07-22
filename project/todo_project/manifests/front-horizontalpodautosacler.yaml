@@ -9,4 +9,4 @@ spec:
     name: todofront-dep
   minReplicas: 1
   maxReplicas: 6
-  targetCPUUtilizationPercentage: 50
+  targetCPUUtilizationPercentage: 5
