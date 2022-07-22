@@ -31,3 +31,7 @@ spec:
                   key: MONGO_INITDB_ROOT_PASSWORD
             - name: MONGO_INITDB_ROOT_USERNAME
               value: "bron"
+          resources:
+            limits:
+              cpu: "150m"
+              memomry: "100Mi"

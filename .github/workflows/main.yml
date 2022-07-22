@@ -2,7 +2,9 @@ name: Release application
 
 on: 
   push:
-  
+    paths:
+      - 'project/**'
+
 env:
   PROJECT_ID: ${{ secrets.GKE_PROJECT }}
   GKE_CLUSTER: dwk-cluster

@@ -8,8 +8,10 @@ resources:
   - todo_project/manifests/persistentvolumeclaim.yaml
   - todo_project/manifests/back-deployment.yaml
   - todo_project/manifests/back-service.yaml
+  - todo_project/manifests/back-horizontalpodautosacler.yaml
   - todo_project/manifests/front-deployment.yaml
   - todo_project/manifests/front-service.yaml
+  - todo_project/manifests/front-horizontalpodautosacler.yaml
   - todo_project/manifests/dailyJob.yaml
   - todo_project/manifests/ingress.yaml
 images:

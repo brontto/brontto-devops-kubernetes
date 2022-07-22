@@ -16,3 +16,8 @@
 #### Part3
 1. Introduction to Google Kubernetes Engine - 6h
 2. Deployment Pipeline - 12h
+
+#### 3.06 DBaaS vs DIY
+
+#### 3.07 Commitment
+I already used DIY mongodb in my project cause the document database seems like an easier option for me. 

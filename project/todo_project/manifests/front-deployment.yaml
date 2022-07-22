@@ -16,3 +16,7 @@ spec:
       containers:
         - name: todofront
           image: PROJECT/FRONT-IMAGE
+          resources:
+            limits:
+              cpu: "150m"
+              memomry: "100Mi"
