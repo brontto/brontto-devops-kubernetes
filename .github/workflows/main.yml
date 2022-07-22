@@ -4,8 +4,8 @@ on:
   push:
     paths:
       - 'project/**'
-      - '.github/workflows/main.yaml'
-
+      - '.github/workflows/main.yml'
+       
 env:
   PROJECT_ID: ${{ secrets.GKE_PROJECT }}
   GKE_CLUSTER: dwk-cluster
