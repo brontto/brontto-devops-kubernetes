@@ -12,9 +12,9 @@ resources:
   - log_output/manifests/deployment.yaml
   - pingandlogoutput-ingress.yaml
 images:
-  - name: EXERCISES/LOG_OUTPUT/READER
+  - name: gcr.io/EXERCISES/LOG_OUTPUT/READER
     newName: brontto/string_reader:erthsdfg
-  - name: EXERCISES/LOG_OUTPUT/WRITER
+  - name: gcr.io/EXERCISES/LOG_OUTPUT/WRITER
     newName: brontto/string_writer:hertaershsr
-  - name: EXERCISES/PING_PONG
+  - name: gcr.io/EXERCISES/PING_PONG
     newName: brontto/pingpong:ashgethjerth

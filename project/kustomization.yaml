@@ -15,9 +15,9 @@ resources:
   - todo_project/manifests/dailyJob.yaml
   - todo_project/manifests/ingress.yaml
 images:
-  - name: PROJECT/FRONT-IMAGE
+  - name: gcr.io/PROJECT_ID/FRONT-IMAGE
     newName: brontto/todo_front:asdfgafsdg
-  - name: PROJECT/BACK-IMAGE
+  - name: gcr.io/PROJECT_ID/BACK-IMAGE
     newName: brontto/todo_server:erahasdfgsdfg
-  - name: PROJECT/DAILY-IMAGE
+  - name: gcr.io/PROJECT_ID/DAILY-IMAGE
     newName: brontto/daily-todo:wge4rtes
