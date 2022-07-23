@@ -65,7 +65,7 @@ jobs:
       
       - name: Deploy
         run: |-
-          cd ./project/
+          cd ./exercises/
           kubectl create namespace exercises-${GITHUB_REF#refs/heads/} --dry-run=true -o yaml | kubectl apply -f -
           kubectl config set-context --current --namespace=exercises-${GITHUB_REF#refs/heads/}
           kustomize edit set namespace  exercises-${GITHUB_REF#refs/heads/}
