@@ -7,8 +7,10 @@ resources:
   - postgres/postgres-service.yaml
   - ping_pong/manifests/service.yaml
   - ping_pong/manifests/deployment.yaml
+  - ping_pong/manifests/horizontalpodautosacler.yaml
   - log_output/manifests/service.yaml
   - log_output/manifests/configmap.yaml
+  - log_output/manifests/horizontalpodautosacler.yaml
   - log_output/manifests/deployment.yaml
   - pingandlogoutput-ingress.yaml
 images:
