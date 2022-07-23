@@ -3,19 +3,19 @@
 
 #### 3.06 DBaaS vs DIY
 ##### DBaaS
-###### Pros
+Pros
 - fast and easy setup
 - easy to scale
 - reliable and works well with gke
-###### Cons
+Cons
 - cost 
 - migration to something else can be difficult
 
 ##### DIY
-###### Pros
+Pros
 - own is own and you can do whatever you want with it
 - can be cheaper
-###### Cons
+Cons
 - configuration is always harder and you need better knowledge about security and stuff
 - needs maintenance
 
