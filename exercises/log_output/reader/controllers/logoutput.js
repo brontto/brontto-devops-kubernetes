@@ -19,7 +19,7 @@ logRouter.get('/', async (req, res) => {
             pingpong = response.data
         })
 
-    res.send(`${MESSAGE} <br>${hash} <br>Ping / Pongs: ${pingpong}`)
+    res.status(200).send(`${MESSAGE} <br>${hash} <br>Ping / Pongs: ${pingpong}`)
 })
 
 module.exports = logRouter
