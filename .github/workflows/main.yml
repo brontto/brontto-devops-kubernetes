@@ -69,9 +69,9 @@ jobs:
           kubectl create namespace project-${GITHUB_REF#refs/heads/} --dry-run=true -o yaml | kubectl apply -f -
           kubectl config set-context --current --namespace=project-${GITHUB_REF#refs/heads/}
           kustomize edit set namespace  project-${GITHUB_REF#refs/heads/}
-          kustomize edit set image gcr.io/PROJECT_ID/BACK-IMAGE=gcr.io/$PROJECT_ID/$BACK_IMAGE:${GITHUB_REF#refs/heads/}-$GITHUB_SHA
-          kustomize edit set image gcr.io/PROJECT_ID/FRONT-IMAGE=gcr.io/$PROJECT_ID/$FRONT_IMAGE:${GITHUB_REF#refs/heads/}-$GITHUB_SHA
-          kustomize edit set image gcr.io/PROJECT_ID/DAILY-IMAGE=gcr.io/$PROJECT_ID/$DAILY_IMAGE:${GITHUB_REF#refs/heads/}-$GITHUB_SHA
+          kustomize edit set image PROJECT_ID/BACK-IMAGE=gcr.io/$PROJECT_ID/$BACK_IMAGE:${GITHUB_REF#refs/heads/}-$GITHUB_SHA
+          kustomize edit set image PROJECT_ID/FRONT-IMAGE=gcr.io/$PROJECT_ID/$FRONT_IMAGE:${GITHUB_REF#refs/heads/}-$GITHUB_SHA
+          kustomize edit set image PROJECT_ID/DAILY-IMAGE=gcr.io/$PROJECT_ID/$DAILY_IMAGE:${GITHUB_REF#refs/heads/}-$GITHUB_SHA
           kustomize build . | kubectl apply -f -
           kubectl rollout status deployment todoserver-dep
           kubectl rollout status deployment todofront-dep

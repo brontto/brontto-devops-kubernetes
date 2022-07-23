@@ -69,9 +69,9 @@ jobs:
           kubectl create namespace exercises --dry-run=true -o yaml | kubectl apply -f -
           kubectl config set-context --current --namespace=exercises
           kustomize edit set namespace  exercises
-          kustomize edit set image gcr.io/EXERCISES/LOG_OUTPUT/READER=gcr.io/$PROJECT_ID/$READER_IMAGE:${GITHUB_REF#refs/heads/}-$GITHUB_SHA
-          kustomize edit set image gcr.io/EXERCISES/LOG_OUTPUT/WRITER=gcr.io/$PROJECT_ID/$WRITER_IMAGE:${GITHUB_REF#refs/heads/}-$GITHUB_SHA
-          kustomize edit set image gcr.io/EXERCISES/PING_PONG=gcr.io/$PROJECT_ID/$PINGPONG_IMAGE:${GITHUB_REF#refs/heads/}-$GITHUB_SHA
+          kustomize edit set image EXERCISES/LOG_OUTPUT/READER=gcr.io/$PROJECT_ID/$READER_IMAGE:${GITHUB_REF#refs/heads/}-$GITHUB_SHA
+          kustomize edit set image EXERCISES/LOG_OUTPUT/WRITER=gcr.io/$PROJECT_ID/$WRITER_IMAGE:${GITHUB_REF#refs/heads/}-$GITHUB_SHA
+          kustomize edit set image EXERCISES/PING_PONG=gcr.io/$PROJECT_ID/$PINGPONG_IMAGE:${GITHUB_REF#refs/heads/}-$GITHUB_SHA
           kustomize build . | kubectl apply -f -
           kubectl rollout status deployment string-generator-dep
           kubectl rollout status deployment pingpong-dep
