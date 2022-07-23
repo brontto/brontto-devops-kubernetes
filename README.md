@@ -23,7 +23,7 @@
 I already used DIY mongodb in my project cause the document database seems like an easier option for me. 
 
 #### 3.10 Logging
-![logging](https://github.com/brontto/brontto-devops-kubernetes/logging.png)
+![logging](https://github.com/brontto/brontto-devops-kubernetes/blob/main/logging.png)
 
 
 #### Part1 
