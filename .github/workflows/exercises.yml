@@ -66,9 +66,9 @@ jobs:
       - name: Deploy
         run: |-
           cd ./exercises/
-          kubectl create namespace exercises-${GITHUB_REF#refs/heads/} --dry-run=true -o yaml | kubectl apply -f -
-          kubectl config set-context --current --namespace=exercises-${GITHUB_REF#refs/heads/}
-          kustomize edit set namespace  exercises-${GITHUB_REF#refs/heads/}
+          kubectl create namespace exercises --dry-run=true -o yaml | kubectl apply -f -
+          kubectl config set-context --current --namespace=exercises
+          kustomize edit set namespace  exercises
           kustomize edit set image gcr.io/PROJECT_ID/LOG_OUTPUT/READER=gcr.io/$PROJECT_ID/$BACK_IMAGE:${GITHUB_REF#refs/heads/}-$GITHUB_SHA
           kustomize edit set image gcr.io/PROJECT_ID/LOG_OUTPUT/WRITER=gcr.io/$PROJECT_ID/$FRONT_IMAGE:${GITHUB_REF#refs/heads/}-$GITHUB_SHA
           kustomize edit set image gcr.io/PROJECT_ID/PING_PONG=gcr.io/$PROJECT_ID/$DAILY_IMAGE:${GITHUB_REF#refs/heads/}-$GITHUB_SHA
