@@ -9,7 +9,7 @@ app.use(cors())
 app.use(morgan('tiny'))
 
 app.get('/', (req, res) => {
-  res.send(200)
+  res.sendStatus(200)
 })
 
 app.use('/pingpong', pingpongRouter)

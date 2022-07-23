@@ -41,7 +41,7 @@ jobs:
           cd ./exercises/log_output/writer/ && docker build \
             --tag "gcr.io/$PROJECT_ID/$WRITER_IMAGE:${GITHUB_REF#refs/heads/}-$GITHUB_SHA" \
             .
-          cd ./../../../exercises/log_output/writer/ && docker build \
+          cd ./../../../exercises/log_output/reader/ && docker build \
             --tag "gcr.io/$PROJECT_ID/$READER_IMAGE:${GITHUB_REF#refs/heads/}-$GITHUB_SHA" \
             .
           cd ./../../../exercises/ping_pong/ && docker build \
