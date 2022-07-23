@@ -1,0 +1,79 @@
+name: Release application
+
+on: 
+  push:
+    paths:
+      - 'exercises/**'
+      - '.github/workflows/exercises.yml'
+       
+env:
+  PROJECT_ID: ${{ secrets.GKE_PROJECT }}
+  GKE_CLUSTER: dwk-cluster
+  GKE_ZONE: europe-north1-b
+  READER_IMAGE: string_reader
+  WRITER_IMAGE: string_writer
+  PINGPONG_IMAGE: pingpong
+  SOPS_AGE_KEY: ${{ secrets.SOPS_AGE_KEY}}
+
+jobs:
+  build-publish-deploy:
+    name: Build, Publish and Deploy
+    runs-on: ubuntu-latest
+     
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Set up Cloud SDK
+        uses: google-github-actions/setup-gcloud@main
+        with:
+          project_id: ${{ secrets.GKE_PROJECT }}
+          service_account_key: ${{ secrets.GKE_SA_KEY }}
+          exports_default_credentials: true
+      
+      - run: |- 
+          gcloud --quiet auth configure-docker
+      
+      - run: |- 
+          gcloud container clusters get-credentials "$GKE_CLUSTER" --zone "$GKE_ZONE"
+      
+      - name: Build 
+        run: |-
+          cd ./exercises/log_output/writer/ && docker build \
+            --tag "gcr.io/$PROJECT_ID/$WRITER_IMAGE:${GITHUB_REF#refs/heads/}-$GITHUB_SHA" \
+            .
+          cd ./../../../exercises/log_output/writer/ && docker build \
+            --tag "gcr.io/$PROJECT_ID/$READER_IMAGE:${GITHUB_REF#refs/heads/}-$GITHUB_SHA" \
+            .
+          cd ./../../../exercises/ping_pong/ && docker build \
+            --tag "gcr.io/$PROJECT_ID/$PINGPONG_IMAGE:${GITHUB_REF#refs/heads/}-$GITHUB_SHA" \
+            .
+            
+      - name: Publish
+        run: |-
+          docker push "gcr.io/$PROJECT_ID/$WRITER_IMAGE:${GITHUB_REF#refs/heads/}-$GITHUB_SHA"
+          docker push "gcr.io/$PROJECT_ID/$READER_IMAGE:${GITHUB_REF#refs/heads/}-$GITHUB_SHA"
+          docker push "gcr.io/$PROJECT_ID/$PINGPONG_IMAGE:${GITHUB_REF#refs/heads/}-$GITHUB_SHA"
+      
+      - name: Set up Secrets
+        run: |-
+            wget https://github.com/mozilla/sops/releases/download/v3.7.3/sops_3.7.3_amd64.deb
+            sudo apt install ./sops_3.7.3_amd64.deb
+            sops --decrypt ./exercises/postgres/postgres-secret.enc.yaml > ./exercises/postgres/postgres-secret.yaml
+      
+      - name: Set up Kustomize
+        uses: imranismail/setup-kustomize@v1
+      
+      - name: Deploy
+        run: |-
+          cd ./project/
+          kubectl create namespace exercises-${GITHUB_REF#refs/heads/} --dry-run=true -o yaml | kubectl apply -f -
+          kubectl config set-context --current --namespace=exercises-${GITHUB_REF#refs/heads/}
+          kustomize edit set namespace  exercises-${GITHUB_REF#refs/heads/}
+          kustomize edit set image gcr.io/PROJECT_ID/LOG_OUTPUT/READER=gcr.io/$PROJECT_ID/$BACK_IMAGE:${GITHUB_REF#refs/heads/}-$GITHUB_SHA
+          kustomize edit set image gcr.io/PROJECT_ID/LOG_OUTPUT/WRITER=gcr.io/$PROJECT_ID/$FRONT_IMAGE:${GITHUB_REF#refs/heads/}-$GITHUB_SHA
+          kustomize edit set image gcr.io/PROJECT_ID/PING_PONG=gcr.io/$PROJECT_ID/$DAILY_IMAGE:${GITHUB_REF#refs/heads/}-$GITHUB_SHA
+          kustomize build . | kubectl apply -f -
+          kubectl rollout status deployment string-generator-dep
+          kubectl rollout status deployment pingpong-dep
+          kubectl get services -o wide
+        
